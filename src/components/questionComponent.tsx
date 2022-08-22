@@ -63,14 +63,15 @@ class QuestionComponent extends React.Component<any, any> {
     render() {
         if (this.state.data != null) {
             return (
-                <div className="m-5">
+                <div className="m-3">
                     <div className="mt-5 mb-3">
-                        <span className="fs-5">
-                            <strong> Question: </strong> { this.state.data.questionStr }
+                        <span>
+                            <strong className="fs-5"> Question: </strong> 
+                            { this.state.data.questionStr }
                         </span>
                     </div>
                     <div className="mb-3"> 
-                        <span className="fs-5 text-primary">
+                        <span className="text-primary">
                             Please select an option from the given below:
                         </span>
                     </div>
