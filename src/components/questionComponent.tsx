@@ -12,13 +12,12 @@ function OptionComponent(props: any) {
 }
 
 function NextQuestionBtnComponent(props: any) {
-    const resetBtnDesign = () => {
-        let questionElement: any = document.getElementById("nextQuesBtn")
-        questionElement.blur() 
+    const resetBtn = (e: any) => {
+        (e.currentTarget).blur() 
     }
 
     return (
-        <button id="nextQuesBtn" type="button" className={"btn btn-primary btn-md px-4 gap-3"} onClick={() => {resetBtnDesign(); props.functions.getQuestionFunction()}}> Next Question </button>
+        <button id="nextQuesBtn" type="button" className={"btn btn-primary btn-md px-4 gap-3"} onClick={(e) => {resetBtn(e); props.functions.getQuestionFunction()}}> Next Question </button>
     )
 }
 
