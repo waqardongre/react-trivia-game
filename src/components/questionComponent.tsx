@@ -17,7 +17,7 @@ function NextQuestionBtnComponent(props: any) {
     }
 
     return (
-        <button id="nextQuesBtn" type="button" className={"btn btn-primary btn-md px-4 gap-3"} onClick={(e) => {resetBtn(e); props.functions.getQuestionFunction()}}> Next Question </button>
+        <button type="button" className={"btn btn-primary btn-md px-4 gap-3"} onClick={(e) => {resetBtn(e); props.functions.getQuestionFunction()}}> Next Question </button>
     )
 }
 
