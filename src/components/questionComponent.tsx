@@ -8,8 +8,20 @@ function OptionComponent(props: any) {
                 { " " + props.value.value[0].option }
             </span>
         </label>
-    );
+    )
 }
+
+function NextQuestionBtnComponent(props: any) {
+    const resetBtnDesign = () => {
+        let questionElement: any = document.getElementById("nextQuesBtn")
+        questionElement.blur() 
+    }
+
+    return (
+        <button id="nextQuesBtn" type="button" className={"btn btn-primary btn-md px-4 gap-3"} onClick={() => {resetBtnDesign(); props.functions.getQuestionFunction()}}> Next Question </button>
+    )
+}
+
 
 class QuestionComponent extends React.Component<any, any> {
     constructor(props: any) {
@@ -62,6 +74,11 @@ class QuestionComponent extends React.Component<any, any> {
 
     render() {
         if (this.state.data != null) {
+            
+            const getQuestionFunction = () => {
+                this.getQuestionFunction()
+            }
+            
             return (
                 <div className="m-3">
                     <div className="mt-5 mb-3">
@@ -82,8 +99,8 @@ class QuestionComponent extends React.Component<any, any> {
                         <span className={"fs-5 " + this.state.data.resultClassName }>
                             <strong>{" " + this.state.data.result + " "}</strong>
                         </span>
-                        <div className="mt-3 mb-5">
-                            <button className="btn btn-primary btn-md px-4 gap-3" onClick={() => this.getQuestionFunction()}> Next Question </button>
+                        <div className="mt-5 mb-5">
+                            <NextQuestionBtnComponent functions={{getQuestionFunction}}/>
                         </div>
                     </div>
                 </div>

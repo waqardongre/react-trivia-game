@@ -46,9 +46,11 @@ class GameComponent extends React.Component <any, any> {
                     resultClassName: "",
                     isOver: false
                 }
+
                 this.setState({ 
                     data: newData
                 })
+
             } 
             else {
                 console.log("error in game.tsx getData()")
@@ -60,10 +62,12 @@ class GameComponent extends React.Component <any, any> {
         let answerId = this.state.data.answerInd
         let answer = this.state.data.answer
         
+        
         // Selecting questionCheckBox option with its state property
         let optionListNew = this.state.data.optionsList
         optionListNew[i][0].isChecked = true
         
+
         if (i === answerId) {
             this.setState((previousState: any) => {
                 return {
