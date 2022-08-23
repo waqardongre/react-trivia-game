@@ -44,7 +44,8 @@ class GameComponent extends React.Component <any, any> {
                     answer: answer,
                     result: "",
                     resultClassName: "",
-                    isOver: false
+                    isOver: false,
+                    nextQuestBtnlabel: "Skip Question"
                 }
 
                 this.setState({ 
@@ -76,7 +77,8 @@ class GameComponent extends React.Component <any, any> {
                         optionsList: optionListNew,
                         result: "Result: Correct answer!",
                         resultClassName: "text-success",
-                        isOver: true
+                        isOver: true,
+                        nextQuestBtnlabel: "Next Question"
                     }
                 }
             })
@@ -89,7 +91,8 @@ class GameComponent extends React.Component <any, any> {
                         optionsList: optionListNew,
                         result: "Result: Wrong! The correct answer is: " + answer,
                         resultClassName: "text-danger",
-                        isOver: true
+                        isOver: true,
+                        nextQuestBtnlabel: "Next Question"
                     }
                 }
             })

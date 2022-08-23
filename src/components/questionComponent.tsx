@@ -12,12 +12,14 @@ function OptionComponent(props: any) {
 }
 
 function NextQuestionBtnComponent(props: any) {
+    const nextQuestBtnlabel = props.nextQuestBtnlabel
+    const getQuestionFunction = () => props.functions.getQuestionFunction()
     const resetBtn = (e: any) => {
         (e.currentTarget).blur() 
     }
 
     return (
-        <button type="button" className={"btn btn-primary btn-md px-4 gap-3"} onClick={(e) => {resetBtn(e); props.functions.getQuestionFunction()}}> Next Question </button>
+        <button type="button" className={"btn btn-primary btn-md px-4 gap-3"} onClick={(e) => {resetBtn(e); getQuestionFunction()}}> {nextQuestBtnlabel} </button>
     )
 }
 
@@ -73,10 +75,10 @@ class QuestionComponent extends React.Component<any, any> {
 
     render() {
         if (this.state.data != null) {
-            
             const getQuestionFunction = () => {
                 this.getQuestionFunction()
             }
+            const nextQuestBtnlabel = this.state.data.nextQuestBtnlabel
             
             return (
                 <div className="m-3">
@@ -99,7 +101,7 @@ class QuestionComponent extends React.Component<any, any> {
                             <strong>{" " + this.state.data.result + " "}</strong>
                         </span>
                         <div className="mt-5 mb-5">
-                            <NextQuestionBtnComponent functions={{getQuestionFunction}}/>
+                            <NextQuestionBtnComponent nextQuestBtnlabel={nextQuestBtnlabel} functions={{getQuestionFunction}}/>
                         </div>
                     </div>
                 </div>
