@@ -27,57 +27,76 @@ class GameComponent extends React.Component <any, any> {
     }
 
     getQuestionFunction() {
-        gameService.getQuestionFunction().then(response => {
-            const data: any = response
-            if (data) {
-                const questionStr = data.question
-                const options = data.incorrect_answers 
-                const optionsLength = options.length + 1
-                const answer = data.correct_answer
-                
-                const answerInd = getRandAnswerInd(0, optionsLength - 1)
-                let optionsList = []
-                
-                // Adding and randoming answer item in options array
-                let j: number = 0
-                for (let i = 0; i <  optionsLength; i ++) {
-                    if (i === answerInd) {
-                        optionsList.push({ 
-                            option: answer, 
-                            isChecked: false,
-                            optionClasses: ""
-                        })
+        gameService.getQuestionFunction()
+            .then(response => {
+                const data: any = response
+                if (data) {
+                    const questionStr = data.question
+                    const options = data.incorrect_answers 
+                    const optionsLength = options.length + 1
+                    const answer = data.correct_answer
+                    
+                    const answerInd = getRandAnswerInd(0, optionsLength - 1)
+                    let optionsList = []
+                    
+                    // Adding and randoming answer item in options array
+                    let j: number = 0
+                    for (let i = 0; i <  optionsLength; i ++) {
+                        if (i === answerInd) {
+                            optionsList.push({ 
+                                option: answer, 
+                                isChecked: false,
+                                optionClasses: ""
+                            })
+                        }
+                        else {
+                            optionsList.push({ 
+                                option: options[j], 
+                                isChecked: false,
+                                optionClasses: ""
+                            })
+                            j ++
+                        }
                     }
-                    else {
-                        optionsList.push({ 
-                            option: options[j], 
-                            isChecked: false,
-                            optionClasses: ""
-                        })
-                        j ++
+                    const newData: any = {
+                        error: false,
+                        questionStr: questionStr,
+                        optionsList: optionsList,
+                        answerInd: answerInd,
+                        answer: answer,
+                        result: "",
+                        resultClassName: "",
+                        isOver: false,
+                        nextQuestBtnlabel: "Skip Question",
+                        isNextQuestBtnDisabled: false
                     }
+
+                    this.setState({ 
+                        data: newData
+                    })
+
+                } 
+                else {
+                    console.log("error in game.tsx getData()")
                 }
+            })
+            .catch(error => {
                 const newData: any = {
-                    questionStr: questionStr,
-                    optionsList: optionsList,
-                    answerInd: answerInd,
-                    answer: answer,
-                    result: "",
-                    resultClassName: "",
+                    error: true,
+                    questionStr: "",
+                    optionsList: [{}],
+                    answerInd: 1,
+                    answer: "",
+                    resultClassName: "text-danger",
                     isOver: false,
-                    nextQuestBtnlabel: "Skip Question",
+                    result: "You appear to be offline... You can't play Trivia Game until you're connected to the internet",
+                    nextQuestBtnlabel: "Retry",
                     isNextQuestBtnDisabled: false
                 }
-
                 this.setState({ 
                     data: newData
                 })
-
-            } 
-            else {
-                console.log("error in game.tsx getData()")
-            }
-        });
+            })
     }
 
     questionOptionHandleClick(i: any) {
@@ -146,6 +165,7 @@ class GameComponent extends React.Component <any, any> {
     }
 
     render() {
+        
         return (
             <div>
                 <header className="d-flex flex-wrap py-3 mb-4 p-5 border-bottom">
