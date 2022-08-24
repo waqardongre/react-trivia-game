@@ -14,7 +14,31 @@ class GameComponent extends React.Component <any, any> {
         this.getQuestionFunction()
     }
 
-    getQuestionFunction():any {
+    questionIsLoadingFunction() {
+        const data = this.state.data
+        const questionStr = data.question
+        const optionsList = data.optionsList 
+        const answerInd = data.answerInd
+        const answer = data.correct_answer
+    
+        const newData: any = {
+            questionStr: questionStr,
+            optionsList: optionsList,
+            answerInd: answerInd,
+            answer: answer,
+            result: "",
+            resultClassName: "",
+            isOver: false,
+            nextQuestBtnlabel: "Loading...",
+            isNextQuestBtnDisabled: true
+        }
+
+        this.setState({ 
+            data: newData
+        })
+    }
+
+    getQuestionFunction() {
         gameService.getQuestionFunction().then(response => {
             const data: any = response
             if (data) {
@@ -24,16 +48,24 @@ class GameComponent extends React.Component <any, any> {
                 const answer = data.correct_answer
                 
                 const answerInd = getRandAnswerInd(0, optionsLength - 1)
-                let optionsList = [Array(optionsLength).fill(null)]
+                let optionsList = []
                 
                 // Adding and randoming answer item in options array
                 let j: number = 0
                 for (let i = 0; i <  optionsLength; i ++) {
                     if (i === answerInd) {
-                        optionsList[i] = [{ option: answer, isChecked: false}]
+                        optionsList.push({ 
+                            option: answer, 
+                            isChecked: false,
+                            optionClasses: ""
+                        })
                     }
                     else {
-                        optionsList[i] = [{ option: options[j], isChecked: false}]
+                        optionsList.push({ 
+                            option: options[j], 
+                            isChecked: false,
+                            optionClasses: ""
+                        })
                         j ++
                     }
                 }
@@ -45,7 +77,8 @@ class GameComponent extends React.Component <any, any> {
                     result: "",
                     resultClassName: "",
                     isOver: false,
-                    nextQuestBtnlabel: "Skip Question"
+                    nextQuestBtnlabel: "Skip Question",
+                    isNextQuestBtnDisabled: false
                 }
 
                 this.setState({ 
@@ -63,11 +96,16 @@ class GameComponent extends React.Component <any, any> {
         let answerId = this.state.data.answerInd
         let answer = this.state.data.answer
         
-        
-        // Selecting questionCheckBox option with its state property
+        // Selecting and updatng background color classes of questionCheckBox option with its state properties
         let optionListNew = this.state.data.optionsList
-        optionListNew[i][0].isChecked = true
-        
+        optionListNew[i].isChecked = true
+        if (i === answerId) {
+            optionListNew[i].optionClasses = "bg-success"
+        }
+        else {
+            optionListNew[i].optionClasses = "bg-danger"
+            optionListNew[answerId].optionClasses="bg-success"    
+        }
 
         if (i === answerId) {
             this.setState((previousState: any) => {
@@ -78,7 +116,8 @@ class GameComponent extends React.Component <any, any> {
                         result: "Result: Correct answer!",
                         resultClassName: "text-success",
                         isOver: true,
-                        nextQuestBtnlabel: "Next Question"
+                        nextQuestBtnlabel: "Next Question",
+                        isNextQuestBtnDisabled: false
                     }
                 }
             })
@@ -92,7 +131,8 @@ class GameComponent extends React.Component <any, any> {
                         result: "Result: Wrong! The correct answer is: " + answer,
                         resultClassName: "text-danger",
                         isOver: true,
-                        nextQuestBtnlabel: "Next Question"
+                        nextQuestBtnlabel: "Next Question",
+                        isNextQuestBtnDisabled: false
                     }
                 }
             })
@@ -105,6 +145,7 @@ class GameComponent extends React.Component <any, any> {
         }
 
         const getQuestionFunction = () => {
+            this.questionIsLoadingFunction()
             this.getQuestionFunction()
         }
 
