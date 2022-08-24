@@ -100,11 +100,11 @@ class GameComponent extends React.Component <any, any> {
         let optionListNew = this.state.data.optionsList
         optionListNew[i].isChecked = true
         if (i === answerId) {
-            optionListNew[i].optionClasses = "bg-success"
+            optionListNew[i].optionClasses = " bg-success text-white "
         }
         else {
-            optionListNew[i].optionClasses = "bg-danger"
-            optionListNew[answerId].optionClasses="bg-success"    
+            optionListNew[i].optionClasses = " bg-danger text-white "
+            optionListNew[answerId].optionClasses=" bg-success text-white "    
         }
 
         if (i === answerId) {
