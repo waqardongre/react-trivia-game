@@ -9,9 +9,10 @@ This a online trivia game built with React following React best practices.
 #### then run 'npm start'
 #### The project will run usually on the link: http://localhost:3000 and you will be redirected to the Home page of this project
 
-#### Live deployed app link: https://waqardongre.github.io/react-trivia-game/
-#### Thank you for reading
+### Live deployed app link: https://waqardongre.github.io/react-trivia-game/
 
 ### [{Software Development Engineer: Moahmed Waqar Zulfeqar Dongre},
 ### {Email: waqardongre@gmail.com},
 ### {LinkedIn: https://www.linkedin.com/in/mowaqardongre/}]
+
+### Thank you for reading
