@@ -8,6 +8,8 @@ This a online trivia game built with React following React best practices.
 #### Open terminal run 'npm install'
 #### then run 'npm start'
 #### The project will run usually on the link: http://localhost:3000 and you will be redirected to the Home page of this project
+
+#### Live deployed app link: https://waqardongre.github.io/react-trivia-game/
 #### Thank you for reading
 
 ### [{Software Development Engineer: Moahmed Waqar Zulfeqar Dongre},

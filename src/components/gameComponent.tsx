@@ -15,26 +15,14 @@ class GameComponent extends React.Component <any, any> {
     }
 
     questionIsLoadingFunction() {
-        const data = this.state.data
-        const questionStr = data.question
-        const optionsList = data.optionsList 
-        const answerInd = data.answerInd
-        const answer = data.correct_answer
-    
-        const newData: any = {
-            questionStr: questionStr,
-            optionsList: optionsList,
-            answerInd: answerInd,
-            answer: answer,
-            result: "",
-            resultClassName: "",
-            isOver: false,
-            nextQuestBtnlabel: "Loading...",
-            isNextQuestBtnDisabled: true
-        }
-
-        this.setState({ 
-            data: newData
+        this.setState((previousState: any) => {
+            return {
+                data: {
+                    ...previousState.data,
+                    nextQuestBtnlabel: "Loading...",
+                    isNextQuestBtnDisabled: true
+                }
+            }
         })
     }
 
