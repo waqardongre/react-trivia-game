@@ -1,36 +1,8 @@
 import React from "react";
+import OptionComponent from "./optionComponent";
+import ButtonComponent from "./buttonComponent"
 
 
-
-function OptionComponent(props: any) {
-    const optionClasses = props.value.optionClasses
-    return (
-        <div className="col-sm-6 p-1">
-            <label className={optionClasses + "btn btn-primary list-group-item d-flex gap-2"}>
-                <input className="form-check-input flex-shrink-0 questionCheckBox" type="radio" checked={props.value.isChecked} disabled={props.data.isOver} onChange={()=> {}} onClick={ props.onClick }/>
-                <span>
-                    { " " + props.value.option }
-                </span>
-            </label>
-        </div>
-    )
-}
-
-function NextQuestionBtnComponent(props: any) {
-    const nextQuestBtnlabel = props.data.nextQuestBtnlabel
-    let isNextQuestBtnDisabled = props.data.isNextQuestBtnDisabled
-    const getQuestionFunction = () => props.functions.getQuestionFunction()
-    const nextQuestionBtnOnClick = (e: any) => {
-        if (getQuestionFunction != null) {
-            getQuestionFunction()
-        }
-        (e.currentTarget).blur()
-    }
-
-    return (
-        <button type="button" className={"btn btn-primary btn-md px-4 gap-3"} disabled={isNextQuestBtnDisabled} onClick={(e) => {nextQuestionBtnOnClick(e)}}> {nextQuestBtnlabel} {isNextQuestBtnDisabled} </button>
-    )
-}
 
 class QuestionComponent extends React.Component<any, any> {
     constructor(props: any) {
@@ -96,7 +68,7 @@ class QuestionComponent extends React.Component<any, any> {
                             <strong>{" " + this.state.data.result + " "}</strong>
                         </span>
                         <div className="mt-4 mb-5">
-                            <NextQuestionBtnComponent data={this.state.data} functions={this.state.functions}/>
+                            <ButtonComponent data={this.state.data} functions={this.state.functions}/>
                         </div>
                     </div>
                 </div>
