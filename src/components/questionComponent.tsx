@@ -79,14 +79,12 @@ class QuestionComponent extends React.Component<any, any> {
                     <div className="m-3">
                         <div className="mt-5 mb-2">
                             <span>
-                                <strong className="fs-5"> Question: </strong> 
-                                Can not load!
+                                <strong className={"fs-5 " + this.state.data.resultClassName}>
+                                    {" " + this.state.data.result + " "}
+                                </strong>
                             </span>
                         </div>
                         <div className="mt-2">
-                            <span className={this.state.data.resultClassName}>
-                                <strong>{" " + this.state.data.result + " "}</strong>
-                            </span>
                             <div className="mt-4 mb-5">
                                 <ButtonComponent data={this.state.data} functions={this.state.functions}/>
                             </div>
