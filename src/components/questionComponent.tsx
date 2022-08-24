@@ -1,13 +1,17 @@
 import React from "react";
 
+
+
 function OptionComponent(props: any) {
     return (
-        <label className="btn btn-primary list-group-item d-flex gap-2">
-            <input className="form-check-input flex-shrink-0 questionCheckBox" type="radio" checked={props.value.value[0].isChecked} disabled={props.value.isOver} onChange={()=> {}} onClick={ props.onClick }/>
-            <span>
-                { " " + props.value.value[0].option }
-            </span>
-        </label>
+        <div className="col-sm-6 p-0">
+            <label className="btn btn-primary list-group-item d-flex gap-2">
+                <input className="form-check-input flex-shrink-0 questionCheckBox" type="radio" checked={props.value.value[0].isChecked} disabled={props.value.isOver} onChange={()=> {}} onClick={ props.onClick }/>
+                <span>
+                    { " " + props.value.value[0].option }
+                </span>
+            </label>
+        </div>
     )
 }
 
@@ -22,7 +26,6 @@ function NextQuestionBtnComponent(props: any) {
         <button type="button" className={"btn btn-primary btn-md px-4 gap-3"} onClick={(e) => {resetBtn(e); getQuestionFunction()}}> {nextQuestBtnlabel} </button>
     )
 }
-
 
 class QuestionComponent extends React.Component<any, any> {
     constructor(props: any) {
@@ -94,7 +97,9 @@ class QuestionComponent extends React.Component<any, any> {
                         </span>
                     </div>
                     <div className="list-group mx-0 w-auto">
-                        { this.renderOption(this.state.data.optionsList)}
+                        <div className="row m-0">
+                            { this.renderOption(this.state.data.optionsList)}
+                        </div>
                     </div>
                     <div className="mt-3"> 
                         <span className={"fs-5 " + this.state.data.resultClassName }>
@@ -105,7 +110,7 @@ class QuestionComponent extends React.Component<any, any> {
                         </div>
                     </div>
                 </div>
-            );
+            )
         }
     }
 }
