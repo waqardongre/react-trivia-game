@@ -149,7 +149,7 @@ class GameComponent extends React.Component <any, any> {
         return (
             <div>
                 <header className="d-flex flex-wrap py-3 mb-4 p-5 border-bottom">
-                    <a href="/" className="d-flex align-items-center me-md-auto text-dark text-decoration-none">
+                    <a href="/react-trivia-game/" className="d-flex align-items-center me-md-auto text-dark text-decoration-none">
                         <span className="fs-3 ">Trivia Game</span>
                     </a>
                 </header>
