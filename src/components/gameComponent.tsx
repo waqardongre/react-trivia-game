@@ -29,9 +29,7 @@ class GameComponent extends React.Component <any, any> {
     getQuestionFunction() {
         gameService.getQuestionFunction()
             .then(response => {
-                debugger
-
-                const data: any = response
+                const data: any = response['results'][0]
                 if (data) {
                     const questionStr = data.question
                     const options = data.incorrect_answers 
