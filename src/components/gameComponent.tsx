@@ -29,6 +29,8 @@ class GameComponent extends React.Component <any, any> {
     getQuestionFunction() {
         gameService.getQuestionFunction()
             .then(response => {
+                debugger
+
                 const data: any = response
                 if (data) {
                     const questionStr = data.question
@@ -77,10 +79,12 @@ class GameComponent extends React.Component <any, any> {
 
                 } 
                 else {
-                    console.log("error in game.tsx getData()")
+                    console.error("Error in game.tsx getData()")
                 }
             })
             .catch(error => {
+                console.error("Error in game.tsx getData() : " + error)
+                
                 const newData: any = {
                     error: true,
                     questionStr: "",

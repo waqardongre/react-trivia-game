@@ -1,5 +1,5 @@
 export const gameService =  {
-    getQuestionFunction : () => {
+    getQuestionFunction : async () => {
         // GET request using fetch
         return fetch('https://opentdb.com/api.php?amount=1')
         .then(async response => {
@@ -14,4 +14,4 @@ export const gameService =  {
             return dataDict
         })
     }
-};
+}
