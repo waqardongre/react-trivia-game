@@ -1,12 +1,13 @@
 # Trivia Game 
-This a online trivia game built with React following React best practices.
 
-### To run this project in your local system follow below instruction or you can even Google it like how to run a React Application on Windows, Linux/Ubuntu or MAC (whatever your OS is). 
+### This a online Trivia game built with React JS following its best practices.
+### To run this project in your local system follow below instruction 
+#### You need to install NPM on your OS which comes with Node installation, which you can download here https://nodejs.org/en/download
 #### Download or clone this reposotory on your system
 #### Extract if downloaded
-#### Open root folder of the project in Visual Studio Code IDE
-#### Open terminal run 'npm install'
-#### then run 'npm start'
+#### Open root folder of the project in the NodeJS Terminal/Command Prompt or your favorite IDE
+#### Run 'npm install'
+#### Then run 'npm start'
 #### The project will run usually on the link: http://localhost:3000 and you will be redirected to the Home page of this project
 
 ### Live deployed app link: https://waqardongre.github.io/react-trivia-game/
