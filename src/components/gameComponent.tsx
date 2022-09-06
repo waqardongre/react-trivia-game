@@ -91,7 +91,8 @@ class GameComponent extends React.Component <any, any> {
                 answer: "",
                 resultClassName: "text-danger",
                 isOver: false,
-                result: "You appear to be offline... You can't play Trivia Game until you're connected to the internet",
+                result: "You appear to be offline... You can't play Trivia Game until you're" +  
+                "connected to the internet. Engineer's stats: " + error.toString(),
                 nextQuestBtnlabel: "Retry",
                 isNextQuestBtnDisabled: false
             }
