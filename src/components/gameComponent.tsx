@@ -1,22 +1,44 @@
-import React from "react"
-import QuestionComponent from "./questionComponent"
+import { useEffect, useState } from "react"
+import { QuestionComponent } from "./QuestionComponent"
+import { LoadingComponent } from "./LoadingComponent"
 import { gameService } from "../services/gameService"
+import { ErrorComponent } from "./ErrorComponent"
 
 
 
-class GameComponent extends React.Component <any, any> {
-
-    constructor(props: any) {
-        super(props)
-        this.state = {
-          data: null
+export const GameComponent = () => {
+    const [state, setState] = useState({
+        data: {
+            error: false,
+            questionStr: "",
+            optionsList: [],
+            answerInd: 0,
+            answer: "",
+            result: "",
+            resultClassName: "",
+            isOver: false,
+            nextQuestBtnlabel: "Loading...",
+            isNextQuestBtnDisabled: false,
+            questionLoaded: false
+        },
+        functions: {
+            getQuestionFunction: () => getQuestionFunction(),
+            questionIsLoadingFunction: () => questionIsLoadingFunction(),
+            questionOptionHandleClickFunction: (i: any, data: any) => questionOptionHandleClickFunction(i, data),
+            renderErrorFunction: (error: any) => renderErrorFunction(error)
         }
-        this.getQuestionFunction()
-    }
+    })
 
-    questionIsLoadingFunction() {
-        this.setState((previousState: any) => {
+    useEffect(()=> {
+            state.functions.getQuestionFunction()
+        },
+        []
+    )
+
+    const questionIsLoadingFunction = () => {
+        setState((previousState: any) => {
             return {
+                ...previousState,
                 data: {
                     ...previousState.data,
                     nextQuestBtnlabel: "Loading...",
@@ -26,7 +48,8 @@ class GameComponent extends React.Component <any, any> {
         })
     }
 
-    getQuestionFunction() {
+    const getQuestionFunction = () => {
+        state.functions.questionIsLoadingFunction()
         gameService.getQuestionFunction()
         .then(response => {
             const data: any = response['results'][0]
@@ -37,7 +60,7 @@ class GameComponent extends React.Component <any, any> {
                 const answer = data.correct_answer
                 
                 const answerInd = getRandAnswerInd(0, optionsLength - 1)
-                let optionsList = []
+                let optionsList: any = []
                 
                 // Adding and randoming answer item in options array
                 let j: number = 0
@@ -58,56 +81,72 @@ class GameComponent extends React.Component <any, any> {
                         j ++
                     }
                 }
-                const newData: any = {
-                    error: false,
-                    questionStr: questionStr,
-                    optionsList: optionsList,
-                    answerInd: answerInd,
-                    answer: answer,
-                    result: "",
-                    resultClassName: "",
-                    isOver: false,
-                    nextQuestBtnlabel: "Skip Question",
-                    isNextQuestBtnDisabled: false
-                }
-
-                this.setState({ 
-                    data: newData
+                
+                setState((previousState: any) => {
+                    return {
+                        ...previousState,
+                        data: {
+                            ...previousState.data,
+                            error: false,
+                            questionStr: questionStr,
+                            optionsList: optionsList,
+                            answerInd: answerInd,
+                            answer: answer,
+                            result: "",
+                            resultClassName: "",
+                            isOver: false,
+                            nextQuestBtnlabel: "Skip Question",
+                            isNextQuestBtnDisabled: false,
+                            questionLoaded: true
+                        }
+                    }
                 })
-
-            } 
+            }
             else {
-                console.error("Error in game.tsx getData()")
+                state.functions.renderErrorFunction(response)
+                console.error("Error in game.tsx getQuestionFunction()")
             }
         })
         .catch(error => {
-            console.error("Error in game.tsx getData() : " + error)
-            
-            const newData: any = {
-                error: true,
-                questionStr: "",
-                optionsList: [{}],
-                answerInd: 1,
-                answer: "",
-                resultClassName: "text-danger",
-                isOver: false,
-                result: "You appear to be offline... You can't play Trivia Game until you're" +  
-                "connected to the internet. Engineer's stats: " + error.toString(),
-                nextQuestBtnlabel: "Retry",
-                isNextQuestBtnDisabled: false
-            }
-            this.setState({ 
-                data: newData
-            })
+            state.functions.renderErrorFunction(error)
+            console.error("Error in game.tsx getQuestionFunction() : " + error)
         })
     }
 
-    questionOptionHandleClick(i: any) {
-        let answerId = this.state.data.answerInd
-        let answer = this.state.data.answer
+    
+
+    const renderErrorFunction = (error: any) => {
+        setState((previousState: any) => {
+            return {
+                ...previousState,
+                data: {
+                    ...previousState.data,
+                    error: true,
+                    questionStr: "",
+                    optionsList: [{}],
+                    answerInd: 1,
+                    answer: "",
+                    resultClassName: "text-danger",
+                    isOver: false,
+                    result: "You appear to be offline... You can't play Trivia Game until you're " +  
+                    "connected to the internet. Engineer's stats: " + error.toString(),
+                    nextQuestBtnlabel: "Retry",
+                    isNextQuestBtnDisabled: false,
+                    questionLoaded: false
+                }
+            }
+        })
+    }
+
+
+
+    const questionOptionHandleClickFunction = (i: any, state: any) => {
+        const data = state.data
+        let answerId = data.answerInd
+        let answer = data.answer
         
         // Selecting and updatng background color classes of questionCheckBox option with its state properties
-        let optionListNew = this.state.data.optionsList
+        let optionListNew = data.optionsList
         optionListNew[i].isChecked = true
         if (i === answerId) {
             optionListNew[i].optionClasses = " bg-success text-white "
@@ -118,8 +157,9 @@ class GameComponent extends React.Component <any, any> {
         }
 
         if (i === answerId) {
-            this.setState((previousState: any) => {
+            setState((previousState: any) => {
                 return {
+                    ...previousState,
                     data: {
                         ...previousState.data,
                         optionsList: optionListNew,
@@ -133,8 +173,9 @@ class GameComponent extends React.Component <any, any> {
             })
         }
         else {
-            this.setState((previousState: any) => {
+            setState((previousState: any) => {
                 return {
+                    ...previousState,
                     data: {
                         ...previousState.data,
                         optionsList: optionListNew,
@@ -149,49 +190,54 @@ class GameComponent extends React.Component <any, any> {
         }
     }
     
-    renderQuestion(data: any) {
-        const questionOptionHandleClick = (i: any) => {
-            this.questionOptionHandleClick(i)
+    const renderQuestion = () => {
+        const data = state.data
+        const questionLoaded = data.questionLoaded
+        const error = data.error
+        
+        if (questionLoaded === true) {
+            if (error === false) {
+                return (
+                    <QuestionComponent 
+                    state={state}
+                    />
+                )
+            }
         }
-
-        const getQuestionFunction = () => {
-            this.questionIsLoadingFunction()
-            this.getQuestionFunction()
+        else {
+            if (error) {
+                return (
+                    <ErrorComponent state={state}/>
+                )
+            }
+            else{
+                return (
+                    <LoadingComponent state={state}/>
+                )
+            }
         }
-
-        return (
-          <QuestionComponent 
-           value={data}
-           functions={{questionOptionHandleClick, getQuestionFunction}}
-          />
-        );
     }
 
-    render() {
+    return (
+        <div>
+            <header className="d-flex flex-wrap py-3 mb-4 p-5 border-bottom">
+                <a href="/react-trivia-game/" className="d-flex align-items-center me-md-auto text-dark text-decoration-none">
+                    <span className="fs-3 ">Trivia Game</span>
+                </a>
+            </header>
         
-        return (
-            <div>
-                <header className="d-flex flex-wrap py-3 mb-4 p-5 border-bottom">
-                    <a href="/react-trivia-game/" className="d-flex align-items-center me-md-auto text-dark text-decoration-none">
-                        <span className="fs-3 ">Trivia Game</span>
-                    </a>
-                </header>
-            
-                <div className="container">
+            <div className="container">
 
-                    <div className="form-group d-flex gap-5 mb-4">
-                        <div className="form-control">
-                            { this.renderQuestion(this.state.data)}
-                        </div>
+                <div className="form-group d-flex gap-5 mb-4">
+                    <div className="form-control">
+                        {renderQuestion()}
                     </div>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
-function getRandAnswerInd(min: number, max: number) {
+const getRandAnswerInd = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
-
-export default GameComponent

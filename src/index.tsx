@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import './css/bootstrap.min.css' // The bootstrap design: https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css
 import reportWebVitals from './reportWebVitals'
-import GameComponent from './components/gameComponent'
+import { GameComponent } from './components/GameComponent'
 
 // ========================================
 

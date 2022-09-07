@@ -1,15 +1,23 @@
-function OptionComponent(props: any) {
-    const optionClasses = props.value.optionClasses
+export const OptionComponent = (props: any) => {
+    const value = props.value
+    const index = props.index
+    const state = props.state
+    const data = state.data
+    const functions = state.functions
+    const questionOptionHandleClick = (index: any, state: any) => functions.questionOptionHandleClickFunction(index, state)
+    const isOver = data.isOver
+    const optionClasses = value.optionClasses
+    const isChecked = value.isChecked
+    const option = value.option
+    
     return (
         <div className="col-sm-6 p-1">
             <label className={optionClasses + "btn btn-primary list-group-item d-flex gap-2"}>
-                <input className="form-check-input flex-shrink-0 questionCheckBox" type="radio" checked={props.value.isChecked} disabled={props.data.isOver} onChange={()=> {}} onClick={ props.onClick }/>
+                <input className="form-check-input flex-shrink-0 questionCheckBox" type="radio" checked={isChecked} disabled={isOver} onChange={()=> {}} onClick={ () => questionOptionHandleClick(index, state) }/>
                 <span>
-                    { " " + props.value.option }
+                    { " " + option }
                 </span>
             </label>
         </div>
     )
 }
-
-export default OptionComponent
