@@ -115,21 +115,22 @@ export const GameComponent = () => {
 
     
 
-    const renderErrorFunction = (error: any) => {
+    const renderErrorFunction = (errorMessage: any) => {
         setState((previousState: any) => {
             return {
                 ...previousState,
                 data: {
                     ...previousState.data,
                     error: true,
+                    errorMessage: "Engineer's stats: " + errorMessage.toString(),
                     questionStr: "",
                     optionsList: [{}],
                     answerInd: 1,
                     answer: "",
-                    resultClassName: "text-danger",
+                    resultClassName: "form-text",
                     isOver: false,
                     result: "You appear to be offline... You can't play Trivia Game until you're " +  
-                    "connected to the internet. Engineer's stats: " + error.toString(),
+                    "connected to the internet.",
                     nextQuestBtnlabel: "Retry",
                     isNextQuestBtnDisabled: false,
                     questionLoaded: false
