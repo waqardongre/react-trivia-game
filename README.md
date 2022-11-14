@@ -12,7 +12,7 @@
 
 ### Live deployed app link: https://waqardongre.github.io/react-trivia-game/
 
-### [{Software Development Engineer: Moahmed Waqar Zulfeqar Dongre},
+### [{Software Development Engineer: Mohamed Waqar Zulfeqar Dongre},
 ### {Email: waqardongre@gmail.com},
 ### {LinkedIn: https://www.linkedin.com/in/mowaqardongre/}]
 
