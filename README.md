@@ -4,7 +4,7 @@
 ### Its developed using only reactJS functional components
 ### To run this project in your local system follow below instruction 
 #### You need to install NPM on your OS which comes with Node installation, which you can download here https://nodejs.org/en/download
-#### Download or clone this reposotory on your system
+#### Download or clone this repository on your system
 #### Extract if downloaded
 #### Open root folder of the project in the NodeJS Terminal/Command Prompt or your favorite IDE
 #### Run 'npm install'
