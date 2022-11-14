@@ -1,6 +1,7 @@
 # Trivia Game 
 
-### This a online Trivia game built with React JS following its best practices.
+### This a online Trivia game built with React JS
+### Its developed using only reactJS functional components
 ### To run this project in your local system follow below instruction 
 #### You need to install NPM on your OS which comes with Node installation, which you can download here https://nodejs.org/en/download
 #### Download or clone this reposotory on your system
